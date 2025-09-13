@@ -96,6 +96,30 @@ function task03() {
 // console.log(typeof client.result); // "string"
 // Змініть код використовуючи стрілкові функції, щоб в коді не використовувалися методи bind().
 
+function task04() {
+    let server = {
+        data: 0,
+        convertToString: function (callback) {
+            callback(() => this.data + "");
+        }
+    };
+
+    let client = {
+        server: server,
+        result: "",
+        calc: function (data) {
+            this.server.data = data;
+            this.server.convertToString(this.notification());
+        },
+        notification: function () {
+            return (callback) => this.result = callback();
+        }
+    };
+
+    client.calc(123);
+    console.log(client.result); // "123"
+    console.log(typeof client.result); // "string"
+}
 
 // 5. Напишіть функцію mapBuilder (keysArray, valuesArrays), яка приймає два масиви однакової довжини. Використовуючи ці масиви, функція повинна створювати об'єкт типу Map, ключами якого є значення з першого масиву, а значеннями Map - значення з другого масиву. Після цього функція повертає даний об'єкт Map.
 // Приклади використання функції:
